@@ -63,10 +63,7 @@ public class ChatHeadService extends Service {
                         return true;
                     case MotionEvent.ACTION_UP:
                         if((event.getRawX() - initialTouchX) == 0 && (event.getRawY() - initialTouchY)==0 ){
-                            Toast.makeText(getApplicationContext(),"MoveEvent",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(),HelperService.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-
-
                         }
                 }
                 return false;

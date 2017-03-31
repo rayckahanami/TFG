@@ -23,10 +23,9 @@ import java.util.Map;
  */
 
 public class CallMethods {
+
     private static TextToSpeech t1;
-
     private static Context context;
-
     public static void call(Context cont, String StringToText, SharedPreferences SP){
         t1=new TextToSpeech(cont.getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -40,21 +39,15 @@ public class CallMethods {
         StringToText = StringToText.replace("llama a ", "");
 
         if (isValidLong(StringToText)) {
-         //   Toast.makeText(cont, ""+StringToText,Toast.LENGTH_SHORT).show();
             calling(cont,StringToText);
         }else {
-            //IS TEXT
             StringToText=StringToText.trim();
             if (SP.contains(StringToText)){
-                //Exist in SharredPreferences
                 String result =SP.getString(StringToText,"");
-                Toast.makeText(cont,"El nombre buscado esta en la SharedPreferences "+result,Toast.LENGTH_SHORT).show();
                 calling(cont,result);
             }else{
                 SharedPreferences SPTEL = cont.getSharedPreferences("sharedPrefTel",cont.MODE_PRIVATE);
-                Toast.makeText(cont,"NO ESTA EN LA SHARED PREFERENCES: "+StringToText,Toast.LENGTH_SHORT).show();
                 Map<String,?> map = SPTEL.getAll();
-                int value=0;
                 ArrayList<Phone> arrayList = new ArrayList<>();
                 for (Map.Entry<String, ?> entry : map.entrySet()){
                     if (entry.getKey().toLowerCase().contains(StringToText)){
@@ -64,33 +57,24 @@ public class CallMethods {
                         }
                         arrayList.add(new Phone(entry.getKey(),entry.getValue().toString()));
                     }
-
                 }
                 if (arrayList.size()!=0 && arrayList.size() ==1){
                     calling(cont,arrayList.get(0).getPhone());
-
                 }else {
-                    Toast.makeText(cont,"Hay " + arrayList.size()+" coincidencias",Toast.LENGTH_SHORT).show();
                     Iterator<Phone> it = arrayList.iterator();
-
                     while(it.hasNext()){
                         Phone p = it.next();
-                        Toast.makeText(cont,p.getName(),Toast.LENGTH_SHORT).show();
                         t1.speak("Existe un "+p.getName(), TextToSpeech.QUEUE_FLUSH, null);
                     }
                 }
-
             }
         }
+    }
 
-
-        }
     public static Boolean isValidLong(String value) {
         try {
             value=value.replace(" ","");
-        //    Toast.makeText(context, value, Toast.LENGTH_SHORT).show();
             Long val = Long.parseLong(value);
-       //     Toast.makeText(context,""+val, Toast.LENGTH_SHORT).show();
 
             if (val != null) {
                 return true;
@@ -102,6 +86,7 @@ public class CallMethods {
             return false;
         }
     }
+
     public static void calling(Context cont, String StringToText){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (context.checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {

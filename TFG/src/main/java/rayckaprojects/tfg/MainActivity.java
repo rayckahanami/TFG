@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    static Context context;
     private static final int REQUEST_CODE1 = 5463;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private EditText txtSpeechInput;

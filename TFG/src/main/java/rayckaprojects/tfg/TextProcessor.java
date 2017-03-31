@@ -59,6 +59,7 @@ public class TextProcessor {
                 Toast.makeText(cont,String.valueOf(comandlistA.get(i).getComand_id()),Toast.LENGTH_SHORT).show();
                 Toast.makeText(cont,"Caller: "+comandlistA.get(i).getComandName()+", Valor asignado: "+comandlistA.get(i).getComandText(),Toast.LENGTH_LONG).show();
             }
+            cont.startActivity(new Intent(cont,ComandShowActivity.class));
 
         }else if (textValue.equalsIgnoreCase("DeleteAll")) {
             db.deleteAll();

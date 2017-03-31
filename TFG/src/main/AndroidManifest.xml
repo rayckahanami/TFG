@@ -6,11 +6,8 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-    <dependencies>
-        compile "com.android.support:appcompat-v7:24.2.0"
-    </dependencies>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -29,8 +26,8 @@
 
         <service android:name=".ChatHeadService" />
 
-        <activity android:name=".HelperService"/>
-
+        <activity android:name=".HelperService" />
+        <activity android:name=".ComandShowActivity"></activity>
     </application>
 
 </manifest>
