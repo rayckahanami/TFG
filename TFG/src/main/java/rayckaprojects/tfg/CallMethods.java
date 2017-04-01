@@ -93,10 +93,14 @@ public class CallMethods {
      //           Toast.makeText(cont, "Aplicación sin permisos para llamada",Toast.LENGTH_SHORT).show();
             }else{
       //          Toast.makeText(cont, "hola tengo permisos para llamar!",Toast.LENGTH_SHORT).show();
-                cont.startActivity(new Intent(Intent.ACTION_CALL, Uri.fromParts("tel", StringToText, null)));
+                Intent i = new Intent(Intent.ACTION_CALL, Uri.fromParts("tel", StringToText, null));
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                cont.startActivity(i);
             }
         }else{
-            cont.startActivity(new Intent(Intent.ACTION_CALL, Uri.fromParts("tel", StringToText, null)));
+            Intent i = new Intent(Intent.ACTION_CALL, Uri.fromParts("tel", StringToText, null));
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            cont.startActivity(i);
         }
     }
 

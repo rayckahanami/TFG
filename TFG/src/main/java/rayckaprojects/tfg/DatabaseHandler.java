@@ -17,9 +17,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Database Version
     private static final int DATABASE_VERSION = 1;
 
-    // Database Name
-    private static final String DATABASE_NAME = "comandManager";
-
     // Contacts table comands
     private static final String TABLE_COMANDS = "comands";
 
@@ -29,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_CONTENT = "content";
 
 
-    public DatabaseHandler(Context context) {
+    public DatabaseHandler(Context context,String DATABASE_NAME) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -157,10 +154,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         addComand(new Comand(1,"llama a","call"));
         addComand(new Comand(2,"hola","showcomands"));
         addComand(new Comand(3,"añadir alarma","alarm"));
-        addComand(new Comand(4,"busca","websearch"));
+        addComand(new Comand(4,"mail","mail"));
         addComand(new Comand(5,"añadir comando","addComand"));
         addComand(new Comand(6,"luz","lightmodifier"));
         addComand(new Comand(7,"añadir contacto","addcontact"));
+
     }
 
 }

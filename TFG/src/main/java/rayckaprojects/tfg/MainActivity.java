@@ -26,8 +26,6 @@ import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,14 +33,13 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    static Context context;
     private static final int REQUEST_CODE1 = 5463;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private EditText txtSpeechInput;
     private ImageButton btnSpeak;
     private ImageButton btnKeyboard;
     public  static final int PERMISSIONS_MULTIPLE_REQUEST = 123;
-    public TextProcessor txtP = new TextProcessor(this);
+    public TextProcessor txtP;
     public TextToSpeech t1;
     public String sharedPref ="sharedPref";
     public String sharedPrefTel="sharedPrefTel";
@@ -52,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        txtP = new TextProcessor(getApplicationContext());
         setContentView(R.layout.activity_main);
 
 
@@ -70,6 +68,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        textToSpeechInitializer();
+    }
 
     /**
      * @param view -> the view
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 promptSpeechInput();
                 break;
             case R.id.btnkeyboard:
-                startService(new Intent(getApplication(), ChatHeadService.class));
+             //   startService(new Intent(getApplication(), ChatHeadService.class));
                 callTextProcesor();
                 break;
         }
@@ -167,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void callTextProcesor(){
         String resp= txtSpeechInput.getText().toString().toLowerCase();
-        Toast.makeText(MainActivity.this,resp,Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(MainActivity.this,resp,Toast.LENGTH_SHORT).show();
         SharedPreferences sharedPref1 = this.getSharedPreferences(sharedPref, Context.MODE_PRIVATE);
         SharedPreferences sharedPrefTel1 = this.getSharedPreferences(sharedPrefTel, Context.MODE_PRIVATE);
         txtP.StringProcessor(resp,sharedPref1,sharedPrefTel1);
@@ -223,9 +226,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     public void dbInitializerMethod(){
-        DatabaseHandler db = new DatabaseHandler(this);
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext(),"Comands");
+
         if (db.getComandsCount() ==0) {
+          //  Toast.makeText(this,"crea comands",Toast.LENGTH_SHORT).show();
             db.addBasicComands();
+        }else {
+            //Toast.makeText(this,"ya hay comands",Toast.LENGTH_SHORT).show();
         }
     }
     public void textToSpeechInitializer(){

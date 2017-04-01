@@ -27,7 +27,8 @@
         <service android:name=".ChatHeadService" />
 
         <activity android:name=".HelperService" />
-        <activity android:name=".ComandShowActivity"></activity>
+        <activity android:name=".ComandShowActivity" />
+        <activity android:name=".MailActivity"></activity>
     </application>
 
 </manifest>

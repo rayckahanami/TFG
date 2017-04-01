@@ -1,11 +1,13 @@
 package rayckaprojects.tfg;
 
 
+import java.io.Serializable;
+
 /**
  * Created by RayckaPC on 02/03/17.
  */
 
-public class Comand {
+public class Comand implements Serializable {
     int comand_id;
     String comandName;
     String comandText;
